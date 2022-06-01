@@ -14,30 +14,52 @@
 <div sec:authorize="hasAuthority('USER')">
     <h3 th:text="'Добро пожаловать, ' + ${firstName} + ' ' + ${lastName}"></h3>
     <p>Список карт:</p>
-    <ol>
-        <li th:each="card : ${listCards}" th:text="${card.numberCard} + ' баланс ' + ${card.balanceCard}"></li>
-    </ol>
-    <p>Список счётов:</p>
-    <ol>
-        <li th:each="account : ${listAccount}"
-            th:text="${account.getNumberAccount()} + ' баланс ' + ${account.getBalanceAccount()}"></li>
-    </ol>
+    <table>
+        <tr>
+            <th>№</th>
+            <th>Номер карты</th>
+            <th>Баланс</th>
+        </tr>
+        <tr th:each="card, cardStat : ${listCards}">
+            <td th:text="${cardStat.count} + '.'"></td>
+            <td th:text="${card.getNumberCard()}"></td>
+            <td th:text="${card.getBalanceCard()}"></td>
+        </tr>
+    </table>
 
-    <a th:href="@{/user/transferHistory}">История операций</a>
+    <p>Список счётов:</p>
+    <table>
+        <tr>
+            <th>№</th>
+            <th>Номер счёта</th>
+            <th>Баланс</th>
+        </tr>
+        <tr th:each="account, accountStat : ${listAccount}">
+            <td th:text="${accountStat.count} + '.'"></td>
+            <td th:text="${account.getNumberAccount()}"></td>
+            <td th:text="${account.getBalanceAccount()}"></td>
+        </tr>
+    </table>
     <br>
-    <a th:href="@{/user/transfer}">Переводы</a>
+
+    <input type="button" value="История операций" onclick="window.location.href = '/user/transferHistory'">
     <br>
-    <a href="">Открыть вклад(в процессе)</a>
     <br>
-    <a href="">Кредитная карта(в процессе)</a>
+    <input type="button" value="Переводы" onclick="window.location.href = '/user/transfer'">
+    <br>
+    <br>
+    <input type="button" value="Открыть вклад(в процессе)">
+    <br>
+    <br>
+    <input type="button" value="Кредитная карта(в процессе)">
 </div>
 
 <div sec:authorize="hasAuthority('ADMIN')">
     <h3>Добро пожаловать, Админ!</h3>
-    <a th:href="@{/admin/transferHistoryUsers}">История операций пользователей</a>
+    <input type="button" value="История операций пользователей"
+           onclick="window.location.href = '/admin/transferHistoryUsers'">
 </div>
 <br>
-
-<a th:href="@{/logout}">Выйти</a>
+<input style="background-color: red" type="button" value="Выйти" onclick="window.location.href = '/logout'">
 </body>
 </html>

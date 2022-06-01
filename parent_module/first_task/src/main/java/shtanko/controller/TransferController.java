@@ -22,7 +22,6 @@ import shtanko.exception.NotEnoughMoneyException;
 import shtanko.exception.TransferIsLockedException;
 import shtanko.model.TransferType;
 import shtanko.model.Transferable;
-import shtanko.service.TransferService;
 import shtanko.service.UserService;
 
 import java.util.Comparator;
